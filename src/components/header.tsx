@@ -25,7 +25,7 @@ export function Header() {
   // Helper function to get nav link classes
   const getNavLinkClasses = (href: string, isMobile = false) => {
     const baseClasses = isMobile 
-      ? 'block py-2 px-2 rounded text-base font-medium transition-colors hover:bg-blue-50 dark:hover:bg-gray-800'
+      ? 'block py-2 px-2 rounded text-base font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800'
       : 'text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400';
     
     const activeClasses = 'text-blue-600 dark:text-blue-400';

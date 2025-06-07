@@ -25,12 +25,12 @@ export default async function BlogPage() {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow"
+              className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 hover:shadow-lg dark:hover:shadow-purple-500/10 transition-all duration-300"
             >
               <h2 className="text-2xl font-bold mb-3">
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                 >
                   {post.title}
                 </Link>
@@ -50,7 +50,7 @@ export default async function BlogPage() {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md text-xs"
+                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-xs border border-gray-200 dark:border-gray-600"
                         >
                           {tag}
                         </span>
@@ -66,7 +66,7 @@ export default async function BlogPage() {
 
               <Link
                 href={`/blog/${post.slug}`}
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
               >
                 Read more →
               </Link>
@@ -80,7 +80,7 @@ export default async function BlogPage() {
           </p>
           <Link
             href="/admin"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-md hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors"
           >
             Write First Post
           </Link>

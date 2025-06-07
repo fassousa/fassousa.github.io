@@ -172,7 +172,7 @@ export default function AboutPage() {
         <div className="lg:col-span-1">
           <div className="sticky top-24">
             {/* Profile Card */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700">
               <div className="w-32 h-32 mx-auto mb-4 relative">
                 <Image
                   src="/profile.webp"
@@ -200,14 +200,14 @@ export default function AboutPage() {
             </div>
 
             {/* Contact Links */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-semibold mb-4">Let&apos;s Connect</h3>
               <div className="space-y-3">
                 <a
                   href="https://github.com/fassousa"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                 >
                   <Github className="h-5 w-5 mr-3" />
                   GitHub
@@ -216,7 +216,7 @@ export default function AboutPage() {
                   href="https://www.linkedin.com/in/fagnnersousa/?locale=en_US"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                 >
                   <Linkedin className="h-5 w-5 mr-3" />
                   LinkedIn
