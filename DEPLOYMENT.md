@@ -2,10 +2,12 @@
 
 This guide will help you deploy your personal webpage to GitHub Pages using GitHub Actions.
 
+**🌐 Live Site**: [https://fassousa.github.io/](https://fassousa.github.io/)
+
 ## Prerequisites
 
-1. **GitHub Repository**: Make sure your code is in a GitHub repository
-2. **Repository Settings**: You need to configure GitHub Pages in your repository settings
+1. **GitHub Repository**: Your code should be in a repository named `fassousa.github.io` for the main user site
+2. **Repository Settings**: GitHub Pages will be automatically enabled for user sites
 
 ## Step 1: Push Your Code to GitHub
 
