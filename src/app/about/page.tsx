@@ -15,7 +15,7 @@ export default function AboutPage() {
           
           <div className="prose prose-gray dark:prose-invert max-w-none">
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              Hello! I'm a passionate developer who loves creating digital experiences 
+              Hello! I&apos;m a passionate developer who loves creating digital experiences 
               that make a difference. With a background in web development and a keen 
               eye for design, I enjoy bringing ideas to life through code.
             </p>
@@ -23,7 +23,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold mb-4">My Journey</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               I started my journey in technology several years ago, and since then, 
-              I've been constantly learning and evolving. I believe in the power of 
+              I&apos;ve been constantly learning and evolving. I believe in the power of 
               continuous learning and staying up-to-date with the latest technologies 
               and best practices.
             </p>
@@ -31,7 +31,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold mb-4">What I Do</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               I specialize in full-stack web development, with expertise in modern 
-              frameworks like Next.js, React, and TypeScript. I'm passionate about 
+              frameworks like Next.js, React, and TypeScript. I&apos;m passionate about 
               creating responsive, accessible, and performant web applications.
             </p>
 
@@ -53,7 +53,7 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-semibold mb-4">Beyond Code</h2>
             <p className="text-gray-600 dark:text-gray-300">
-              When I'm not coding, you can find me exploring new technologies, 
+              When I&apos;m not coding, you can find me exploring new technologies, 
               reading tech blogs, or working on personal projects. I also enjoy 
               sharing knowledge through blog posts and contributing to open-source 
               projects.
@@ -88,7 +88,7 @@ export default function AboutPage() {
 
             {/* Contact Links */}
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Let's Connect</h3>
+              <h3 className="text-lg font-semibold mb-4">Let&apos;s Connect</h3>
               <div className="space-y-3">
                 <a
                   href="https://github.com/yourusername"

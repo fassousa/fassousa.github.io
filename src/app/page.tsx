@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { getAllPosts } from '@/lib/blog';
 import { format } from 'date-fns';
 
@@ -12,10 +12,10 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="text-center mb-16">
         <h1 className="text-4xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-wide leading-tight pb-2">
-          Hi, I'm Fagnner Sousa
+          Hi, I&apos;m Fagnner Sousa
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-          I'm a passionate developer who loves creating amazing web experiences. 
+          I&apos;m a passionate developer who loves creating amazing web experiences. 
           Welcome to my personal space where I share my thoughts, projects, and journey.
         </p>
         <div className="flex justify-center space-x-6">

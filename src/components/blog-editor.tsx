@@ -14,11 +14,10 @@ interface BlogEditorProps {
     tags: string[];
     published: boolean;
   };
-  slug?: string;
   mode: 'new' | 'edit';
 }
 
-export default function BlogEditor({ initialData, slug, mode }: BlogEditorProps) {
+export default function BlogEditor({ initialData, mode }: BlogEditorProps) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({

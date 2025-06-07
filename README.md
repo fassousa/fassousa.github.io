@@ -72,7 +72,7 @@ personal-page/
 
 1. **Using the Admin Interface** (Recommended):
    - Navigate to `/admin`
-   - Enter password: `your-secure-password`
+   - Enter password: `FagnnerSousa2025!`
    - Click "New Post" to create content with live preview
 
 2. **Manual Creation**:
