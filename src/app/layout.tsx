@@ -41,6 +41,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  // Remove any existing theme classes
+                  document.documentElement.classList.remove('dark', 'light');
+                  
+                  const theme = localStorage.getItem('theme') || 'light';
+                  
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else if (theme === 'system') {
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                      document.documentElement.classList.add('dark');
+                    }
+                  }
+                  // For 'light' theme, we don't add any class (default state)
+                } catch (e) {
+                  console.error('Theme initialization error:', e);
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
