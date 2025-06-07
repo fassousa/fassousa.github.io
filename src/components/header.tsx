@@ -4,25 +4,50 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+
+// Navigation items - moved outside component to avoid recreation on each render
+const navigationItems = [
+  { name: 'Home', href: '/' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'About', href: '/about' },
+];
 
 export function Header() {
   const pathname = usePathname();
-  const hideProfilePhoto = pathname.startsWith('/about');
+  const isAboutPage = pathname.startsWith('/about');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'About', href: '/about' },
-  ];
+  // Helper function to determine if a nav item is active
+  const isActiveLink = (href: string) => pathname === href;
+
+  // Helper function to get nav link classes
+  const getNavLinkClasses = (href: string, isMobile = false) => {
+    const baseClasses = isMobile 
+      ? 'block py-2 px-2 rounded text-base font-medium transition-colors hover:bg-blue-50 dark:hover:bg-gray-800'
+      : 'text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400';
+    
+    const activeClasses = 'text-blue-600 dark:text-blue-400';
+    const inactiveClasses = isMobile 
+      ? 'text-gray-700 dark:text-gray-200'
+      : 'text-gray-600 dark:text-gray-300';
+    
+    return `${baseClasses} ${isActiveLink(href) ? activeClasses : inactiveClasses}`;
+  };
+
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
+          {/* Logo and profile */}
           <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
             <div className="flex items-center gap-3">
               <span>Fagnner Sousa</span>
-              {!hideProfilePhoto && (
+              {!isAboutPage && (
                 <div className="w-8 h-8 relative flex-shrink-0">
                   <Image
                     src="/profile.webp"
@@ -35,27 +60,51 @@ export function Header() {
               )}
             </div>
           </Link>
-          
+
+          {/* Desktop navigation */}
           <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
+            {navigationItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
-                  pathname === item.href
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-300'
-                }`}
+                className={getNavLinkClasses(item.href)}
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
+          {/* Mobile menu button and theme toggle */}
           <div className="flex items-center space-x-4">
+            <button
+              className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              onClick={toggleMobileMenu}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
             <ThemeToggle />
           </div>
         </div>
+
+        {/* Mobile navigation dropdown */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 pb-4">
+            <ul className="flex flex-col gap-2 mt-2">
+              {navigationItems.slice(1).map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={getNavLinkClasses(item.href, true)}
+                    onClick={closeMobileMenu}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </div>
     </header>
   );

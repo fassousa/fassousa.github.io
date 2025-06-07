@@ -23,17 +23,17 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-semibold mb-4">My Journey</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              I started my journey in technology several years ago, and since then, 
-              I&apos;ve been constantly learning and evolving. I believe in the power of 
-              continuous learning and staying up-to-date with the latest technologies 
-              and best practices.
+              My journey in tech began years ago, fueled by a lifelong passion for videogames and all things technological. 
+              I&apos;m always drawn to the ever-evolving landscape of innovation, a drive that complements my academic background 
+              with a major in International Relations and a specialization in Software Engineering. This unique blend allows 
+              me to approach technology with a global perspective, constantly seeking to learn, evolve, and stay ahead of the curve.
             </p>
 
             <h2 className="text-2xl font-semibold mb-4">What I Do</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              I specialize in full-stack web development, with expertise in modern 
-              frameworks like Next.js, React, and TypeScript. I&apos;m passionate about 
-              creating responsive, accessible, and performant web applications.
+              I&apos;m a web developer with 5 years of experience building user-friendly online products and services. 
+              I&apos;ve worked with startups and growing businesses across diverse industries like e-commerce, communication platforms, 
+              and financial services. My focus is on creating scalable solutions that deliver real value.
             </p>
 
             <h2 className="text-2xl font-semibold mb-4">Skills & Technologies</h2>
