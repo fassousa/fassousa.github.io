@@ -37,19 +37,125 @@ export default function AboutPage() {
             </p>
 
             <h2 className="text-2xl font-semibold mb-4">Skills & Technologies</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-              {[
-                'JavaScript', 'TypeScript', 'React', 'Next.js',
-                'Node.js', 'Python', 'HTML/CSS', 'Tailwind CSS',
-                'Git', 'Docker', 'PostgreSQL', 'MongoDB'
-              ].map((skill) => (
-                <div
-                  key={skill}
-                  className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-md text-center text-sm"
-                >
-                  {skill}
-                </div>
-              ))}
+            
+            {/* Languages */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Languages</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['Ruby', 'JavaScript', 'SQL'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-md text-center text-sm text-blue-800 dark:text-blue-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Frameworks/Libraries */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Frameworks/Libraries</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['Ruby on Rails', 'React'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-md text-center text-sm text-green-800 dark:text-green-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Databases */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Databases</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['PostgreSQL', 'MySQL'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 rounded-md text-center text-sm text-purple-800 dark:text-purple-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Testing */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Testing</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['RSpec', 'Jest'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-md text-center text-sm text-yellow-800 dark:text-yellow-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tools */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Tools</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['Git', 'GitHub', 'GitLab', 'Docker', 'Redis', 'Sidekiq'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded-md text-center text-sm text-orange-800 dark:text-orange-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CI/CD */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">CI/CD</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['CircleCI', 'Capistrano'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-md text-center text-sm text-indigo-800 dark:text-indigo-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Monitoring */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Monitoring</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['Rollbar', 'Sentry', 'Datadog', 'Elastic', 'New Relic'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-pink-50 dark:bg-pink-900/30 border border-pink-200 dark:border-pink-800 rounded-md text-center text-sm text-pink-800 dark:text-pink-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Cloud & DevOps */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-3 text-gray-800 dark:text-gray-200">Cloud & DevOps</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {['AWS (EC2, S3, RDS, DynamoDB)', 'Docker', 'Cloudinary'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="px-3 py-2 bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800 rounded-md text-center text-sm text-teal-800 dark:text-teal-200"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <h2 className="text-2xl font-semibold mb-4">Beyond Code</h2>
