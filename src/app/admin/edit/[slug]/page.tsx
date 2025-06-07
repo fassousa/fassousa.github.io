@@ -1,11 +1,18 @@
 import BlogEditor from '@/components/blog-editor';
-import { getPostBySlug } from '@/lib/blog';
+import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 
 interface EditPostPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: EditPostPageProps) {
