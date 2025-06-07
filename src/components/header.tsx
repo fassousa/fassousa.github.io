@@ -1,11 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
 
 export function Header() {
   const pathname = usePathname();
+  const hideProfilePhoto = pathname.startsWith('/about');
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -18,7 +20,20 @@ export function Header() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-            Fagnner Sousa
+            <div className="flex items-center gap-3">
+              <span>Fagnner Sousa</span>
+              {!hideProfilePhoto && (
+                <div className="w-8 h-8 relative flex-shrink-0">
+                  <Image
+                    src="/profile.webp"
+                    alt="Fagnner Sousa"
+                    width={32}
+                    height={32}
+                    className="rounded-full object-cover"
+                  />
+                </div>
+              )}
+            </div>
           </Link>
           
           <nav className="hidden md:flex space-x-8">
