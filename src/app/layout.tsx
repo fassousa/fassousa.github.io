@@ -15,8 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Personal Website",
-  description: "A personal website with blog and dark mode",
+  title: "Fagnner Sousa - Developer & Blog",
+  description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences. Welcome to my space where I share thoughts, projects, and journey.",
+  keywords: ["Fagnner Sousa", "developer", "web development", "blog", "personal website"],
+  authors: [{ name: "Fagnner Sousa" }],
+  creator: "Fagnner Sousa",
+  openGraph: {
+    title: "Fagnner Sousa - Developer & Blog",
+    description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
+    url: "https://fassousa.github.io/personal-page",
+    siteName: "Fagnner Sousa",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fagnner Sousa - Developer & Blog",
+    description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
+  },
 };
 
 export default function RootLayout({

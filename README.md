@@ -24,7 +24,7 @@ A modern, fast, and beautiful personal website built with Next.js, featuring a b
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/fassousa/personal-page.git
 cd personal-page
 ```
 
@@ -111,7 +111,7 @@ Update the following files with your information:
 ⚠️ **Important**: Change the admin password in `src/lib/auth.ts`:
 
 ```typescript
-const ADMIN_PASSWORD = 'your-secure-password'; // Change this!
+const ADMIN_PASSWORD = 'FagnnerSousa2025!'; // Change this to your secure password!
 ```
 
 ### GitHub Pages Configuration
@@ -121,8 +121,8 @@ Update `next.config.ts` for your repository:
 ```typescript
 const nextConfig = {
   // ... other config
-  basePath: '/your-repo-name',        // Your GitHub repository name
-  assetPrefix: '/your-repo-name/',
+  basePath: '/personal-page',        // Your GitHub repository name
+  assetPrefix: '/personal-page/',
 };
 ```
 
