@@ -1,8 +1,9 @@
-import { Github, Linkedin, Mail, MapPin, Calendar } from 'lucide-react';
+import { Github, Linkedin, MapPin, Calendar } from 'lucide-react';
+import Image from 'next/image';
 
 export const metadata = {
-  title: 'About - Your Personal Website',
-  description: 'Learn more about me, my background, and what I do.',
+  title: 'About - Fagnner Sousa',
+  description: 'Learn more about Fagnner Sousa, his background, and what he does.',
 };
 
 export default function AboutPage() {
@@ -15,7 +16,7 @@ export default function AboutPage() {
           
           <div className="prose prose-gray dark:prose-invert max-w-none">
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              Hello! I&apos;m a passionate developer who loves creating digital experiences 
+              Hello! I&apos;m Fagnner Sousa, a passionate developer who loves creating digital experiences 
               that make a difference. With a background in web development and a keen 
               eye for design, I enjoy bringing ideas to life through code.
             </p>
@@ -66,10 +67,16 @@ export default function AboutPage() {
           <div className="sticky top-24">
             {/* Profile Card */}
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-6">
-              <div className="w-32 h-32 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                YN
+              <div className="w-32 h-32 mx-auto mb-4 relative">
+                <Image
+                  src="/profile.webp"
+                  alt="Fagnner Sousa"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-semibold text-center mb-2">Your Name</h3>
+              <h3 className="text-xl font-semibold text-center mb-2">Fagnner Sousa</h3>
               <p className="text-gray-600 dark:text-gray-300 text-center mb-4">
                 Full-Stack Developer
               </p>
@@ -77,7 +84,7 @@ export default function AboutPage() {
               <div className="space-y-3">
                 <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                   <MapPin className="h-4 w-4 mr-2" />
-                  Your City, Country
+                  Brazil
                 </div>
                 <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                   <Calendar className="h-4 w-4 mr-2" />
@@ -91,7 +98,7 @@ export default function AboutPage() {
               <h3 className="text-lg font-semibold mb-4">Let&apos;s Connect</h3>
               <div className="space-y-3">
                 <a
-                  href="https://github.com/yourusername"
+                  href="https://github.com/fassousa"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -100,20 +107,13 @@ export default function AboutPage() {
                   GitHub
                 </a>
                 <a
-                  href="https://linkedin.com/in/yourusername"
+                  href="https://www.linkedin.com/in/fagnnersousa/?locale=en_US"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <Linkedin className="h-5 w-5 mr-3" />
                   LinkedIn
-                </a>
-                <a
-                  href="mailto:your.email@example.com"
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <Mail className="h-5 w-5 mr-3" />
-                  Email
                 </a>
               </div>
             </div>
