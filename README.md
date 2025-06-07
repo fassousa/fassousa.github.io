@@ -2,6 +2,8 @@
 
 A modern, fast, and beautiful personal website built with Next.js, featuring a blog with an admin interface and dark mode support. Optimized for GitHub Pages deployment with Static Site Generation (SSG).
 
+🌐 **Live Site**: [https://fassousa.github.io/personal-page/](https://fassousa.github.io/personal-page/)
+
 ## ✨ Features
 
 - **🚀 Fast & Modern**: Built with Next.js 15 and TypeScript
