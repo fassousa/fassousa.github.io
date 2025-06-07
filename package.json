@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build && next export",
+    "build-only": "next build",
+    "build-check": "next build --no-lint",
+    "type-check": "tsc --noEmit",
     "export": "next build && next export",
     "start": "next start",
     "lint": "next lint"
