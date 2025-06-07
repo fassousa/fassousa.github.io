@@ -3,13 +3,14 @@ import { getPostBySlug } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 
 interface EditPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: EditPostPageProps) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   
   return {
     title: post ? `Edit: ${post.title} - Admin` : 'Post Not Found',
@@ -18,7 +19,8 @@ export async function generateMetadata({ params }: EditPostPageProps) {
 }
 
 export default async function EditPostPage({ params }: EditPostPageProps) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
