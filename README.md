@@ -26,8 +26,8 @@ A modern, fast, and beautiful personal website built with Next.js, featuring a b
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/fassousa/personal-page.git
-cd personal-page
+git clone https://github.com/fassousa/fassousa.github.io.git
+cd fassousa.github.io
 ```
 
 2. Install dependencies:
@@ -45,7 +45,7 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-personal-page/
+fassousa.github.io/
 ├── content/
 │   └── blog/                 # Markdown blog posts
 ├── src/
@@ -74,7 +74,7 @@ personal-page/
 
 1. **Using the Admin Interface** (Recommended):
    - Navigate to `/admin`
-   - Enter password: `FagnnerSousa2025!`
+   - Enter the admin password
    - Click "New Post" to create content with live preview
 
 2. **Manual Creation**:
@@ -97,79 +97,67 @@ published: true
 Write your blog post content using Markdown syntax.
 ```
 
-## 🎨 Customization
+## 🎨 Development
 
-### Personal Information
+### Local Development
 
-Update the following files with your information:
+To work on this project locally:
 
-1. **src/app/page.tsx** - Hero section and social links
-2. **src/app/about/page.tsx** - About page content
-3. **src/components/header.tsx** - Navigation and site name
-4. **src/app/layout.tsx** - Site metadata
+1. **Clone and Setup**:
+   ```bash
+   git clone https://github.com/fassousa/fassousa.github.io.git
+   cd fassousa.github.io
+   npm install
+   ```
 
-### Admin Password
+2. **Development Server**:
+   ```bash
+   npm run dev
+   ```
 
-⚠️ **Important**: Change the admin password in `src/lib/auth.ts`:
-
-```typescript
-const ADMIN_PASSWORD = 'FagnnerSousa2025!'; // Change this to your secure password!
-```
-
-### GitHub Pages Configuration
-
-Update `next.config.ts` for your repository:
-
-```typescript
-const nextConfig = {
-  // ... other config
-  basePath: '/personal-page',        // Your GitHub repository name
-  assetPrefix: '/personal-page/',
-};
-```
+3. **Build and Test**:
+   ```bash
+   npm run build
+   npm run export
+   ```
 
 ## 🚀 Deployment
 
 ### GitHub Pages
 
-1. Update the repository name in `next.config.ts`
-2. Build and export:
-   ```bash
-   npm run export
-   ```
-3. Deploy the `out` folder to GitHub Pages
-4. Or use GitHub Actions for automatic deployment
+This site is automatically deployed to GitHub Pages:
 
-### Other Platforms
+1. Push changes to the main branch
+2. GitHub Actions automatically builds and deploys
+3. Site is available at [https://fassousa.github.io/](https://fassousa.github.io/)
 
-This static site can be deployed to:
+### Alternative Platforms
+
+This static site can also be deployed to:
 - Vercel
 - Netlify  
 - Cloudflare Pages
 - Any static hosting service
 
-## 🛡️ Security Notes
+## 🛡️ Security
 
-- The admin interface uses client-side authentication for demo purposes
-- For production, implement proper server-side authentication
-- Change the default admin password before deployment
-- Consider adding rate limiting for the admin interface
+- Admin interface uses client-side authentication
+- Password-protected content management
+- Static site generation for optimal security
 
-## 🤝 Contributing
+## 🛠️ Technology Stack
 
-This is a personal website template. Feel free to fork and customize it for your own use!
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Markdown**: remark & remark-html
+- **Deployment**: GitHub Pages with Static Site Generation
 
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🙏 Acknowledgments
-
-- Built with [Next.js](https://nextjs.org/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Icons from [Lucide React](https://lucide.dev/)
-- Markdown processing with [remark](https://remark.js.org/)
-
 ---
 
-**Happy blogging!** 🎉
+**Built with ❤️ by Fagnner Sousa**
