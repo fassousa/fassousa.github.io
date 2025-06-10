@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable export mode for GitHub Pages deployment
+  // For GitHub Pages deployment: static export
+  // Note: API routes don't work with static export - they're development-only
   output: 'export',
   trailingSlash: true,
   images: {
