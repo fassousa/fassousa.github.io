@@ -41,5 +41,5 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
     published: post.published !== false,
   };
 
-  return <BlogEditor mode="edit" initialData={initialData} />;
+  return <BlogEditor mode="edit" slug={slug} initialData={initialData} />;
 }

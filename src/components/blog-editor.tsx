@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { checkAuth } from '@/lib/auth';
+import { checkAuth, getAuthToken } from '@/lib/auth';
 import { Save, ArrowLeft, Eye } from 'lucide-react';
 import Link from 'next/link';
 
@@ -15,9 +15,10 @@ interface BlogEditorProps {
     published: boolean;
   };
   mode: 'new' | 'edit';
+  slug?: string; // Add slug for edit mode
 }
 
-export default function BlogEditor({ initialData, mode }: BlogEditorProps) {
+export default function BlogEditor({ initialData, mode, slug }: BlogEditorProps) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,6 +30,7 @@ export default function BlogEditor({ initialData, mode }: BlogEditorProps) {
   });
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const authStatus = checkAuth();
@@ -41,24 +43,53 @@ export default function BlogEditor({ initialData, mode }: BlogEditorProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError(null);
 
     try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
       const postData = {
-        ...formData,
+        title: formData.title,
+        excerpt: formData.excerpt,
+        content: formData.content,
         tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-        date: new Date().toISOString(),
+        published: formData.published,
       };
 
-      // In a real app, this would be an API call to save the post
-      console.log('Saving post:', postData);
+      const url = mode === 'edit' && slug 
+        ? `/api/posts/${slug}` 
+        : '/api/posts';
       
-      // For demo purposes, we'll simulate saving
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const method = mode === 'edit' ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save post');
+      }
+
+      const result = await response.json();
       
-      // Redirect to admin page
-      router.push('/admin');
+      // Redirect to the blog post or admin page
+      if (mode === 'new') {
+        router.push(`/blog/${result.slug}`);
+      } else {
+        router.push('/admin');
+      }
     } catch (error) {
       console.error('Error saving post:', error);
+      setError(error instanceof Error ? error.message : 'Failed to save post');
     } finally {
       setSaving(false);
     }
@@ -95,6 +126,12 @@ export default function BlogEditor({ initialData, mode }: BlogEditorProps) {
           {preview ? 'Edit' : 'Preview'}
         </button>
       </div>
+
+      {error && (
+        <div className="mb-6 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-md">
+          {error}
+        </div>
+      )}
 
       {preview ? (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8">

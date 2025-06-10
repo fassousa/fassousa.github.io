@@ -62,6 +62,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {format(new Date(post.date), 'MMMM d, yyyy')}
               </time>
             </div>
+            {post.updatedDate && post.updatedDate !== post.date && (
+              <div className="flex items-center">
+                <Calendar className="h-4 w-4 mr-1" />
+                <span>
+                  Updated {format(new Date(post.updatedDate), 'MMMM d, yyyy')}
+                </span>
+              </div>
+            )}
             {post.tags && post.tags.length > 0 && (
               <div className="flex items-center">
                 <Tag className="h-4 w-4 mr-1" />
@@ -84,6 +92,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           className="prose prose-gray dark:prose-invert max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+        
+        {/* Post metadata footer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="text-sm text-gray-500 dark:text-gray-400 italic">
+            <p>This post was written on {format(new Date(post.date), 'MMMM d, yyyy')}</p>
+            {post.updatedDate && post.updatedDate !== post.date && (
+              <p>Last updated on {format(new Date(post.updatedDate), 'MMMM d, yyyy')}</p>
+            )}
+          </div>
+        </div>
       </article>
 
       <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">

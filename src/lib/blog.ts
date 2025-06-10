@@ -30,6 +30,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
             slug,
             title: data.title || 'Untitled',
             date: data.date || new Date().toISOString(),
+            updatedDate: data.updatedDate,
             excerpt: data.excerpt || '',
             content: contentHtml,
             tags: data.tags || [],
@@ -65,6 +66,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       slug,
       title: data.title || 'Untitled',
       date: data.date || new Date().toISOString(),
+      updatedDate: data.updatedDate,
       excerpt: data.excerpt || '',
       content: contentHtml,
       tags: data.tags || [],
@@ -80,7 +82,7 @@ export function createPost(slug: string, metadata: BlogMetadata, content: string
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const frontmatter = `---
 title: "${metadata.title}"
-date: "${metadata.date}"
+date: "${metadata.date}"${metadata.updatedDate ? `\nupdatedDate: "${metadata.updatedDate}"` : ''}
 excerpt: "${metadata.excerpt}"
 tags: [${metadata.tags?.map(tag => `"${tag}"`).join(', ') || ''}]
 published: ${metadata.published !== false}
@@ -93,4 +95,14 @@ ${content}`;
   }
   
   fs.writeFileSync(fullPath, frontmatter);
+}
+
+export function updatePost(slug: string, metadata: BlogMetadata, content: string): void {
+  // When updating a post, always set the updatedDate to current date
+  const updatedMetadata = {
+    ...metadata,
+    updatedDate: new Date().toISOString().split('T')[0], // Format as YYYY-MM-DD
+  };
+  
+  createPost(slug, updatedMetadata, content);
 }
