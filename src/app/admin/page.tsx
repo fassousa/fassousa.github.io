@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { checkAuth, authenticate, logout } from '@/lib/auth';
-import { Lock, LogOut, Plus, Edit, Trash2 } from 'lucide-react';
+import { Lock, LogOut, Plus, Edit, Trash2, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 interface BlogPost {
@@ -31,12 +31,19 @@ export default function AdminPage() {
 
   const loadPosts = async () => {
     try {
-      // In a real app, this would be an API call
-      // For now, we'll show a placeholder
-      setPosts([]);
-      setLoading(false);
+      setLoading(true);
+      const response = await fetch('/api/posts');
+      if (response.ok) {
+        const allPosts = await response.json();
+        setPosts(allPosts);
+      } else {
+        console.error('Failed to load posts');
+        setPosts([]);
+      }
     } catch (error) {
       console.error('Error loading posts:', error);
+      setPosts([]);
+    } finally {
       setLoading(false);
     }
   };
@@ -100,7 +107,7 @@ export default function AdminPage() {
 
           <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-md">
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              <strong>Demo Password:</strong> your-secure-password
+              <strong>Demo Password:</strong> FagnnerSousa2025!
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               Change this in src/lib/auth.ts for production use
@@ -160,12 +167,23 @@ export default function AdminPage() {
                 </div>
                 <div className="flex space-x-2">
                   <Link
+                    href={`/blog/${post.slug}`}
+                    className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
+                    title="View Post"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                  <Link
                     href={`/admin/edit/${post.slug}`}
                     className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md"
+                    title="Edit Post"
                   >
                     <Edit className="h-4 w-4" />
                   </Link>
-                  <button className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md">
+                  <button 
+                    className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md"
+                    title="Delete Post"
+                  >
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>

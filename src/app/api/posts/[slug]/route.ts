@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updatePost, getPostBySlug } from '@/lib/blog';
 import { checkAuth } from '@/lib/auth';
 
+// Configure for static export
+export const dynamic = 'force-dynamic';
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }

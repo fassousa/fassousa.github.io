@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createPost } from '@/lib/blog';
+import { createPost, getAllPosts } from '@/lib/blog';
 import { checkAuth } from '@/lib/auth';
+
+// Configure for static export
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  try {
+    const posts = await getAllPosts();
+    return NextResponse.json(posts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {

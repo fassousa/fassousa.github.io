@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable export mode for GitHub Pages deployment
   output: 'export',
   trailingSlash: true,
   images: {

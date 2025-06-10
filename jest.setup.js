@@ -1,4 +1,6 @@
 // Jest setup file
+require('@testing-library/jest-dom');
+
 global.console = {
   ...console,
   // Suppress console.log during tests unless explicitly needed
