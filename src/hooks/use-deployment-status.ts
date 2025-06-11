@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { 
   getGitHubToken, 
   fetchLatestWorkflowRun, 
-  getDisplayStatus,
   type WorkflowRun 
 } from '@/lib/github'
 
