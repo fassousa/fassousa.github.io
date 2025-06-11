@@ -66,7 +66,8 @@ published: true
         title,
         date: new Date().toISOString().split('T')[0],
         content,
-        published: true
+        published: true,
+        updatedDate: undefined as string | undefined
       };
     };
 

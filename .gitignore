@@ -40,3 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 PROJECT_REVIEW_SUMMARY.txt
+
+# Documentation analysis files (dev only - not tracked in repo)
+CONSOLIDATED_DOCS.txt
+CODE_REVIEW_REPORT.md
+TASK_COMPLETION_SUMMARY.md
+REFACTORING_ANALYSIS.md
+TEST_CLEANUP_SUMMARY.md
+FINAL_CODE_REVIEW_SUMMARY.md
+.github/copilot-instructions.md

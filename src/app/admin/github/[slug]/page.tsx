@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
-import GitHubEditor from '@/components/github-editor';
+import GitHubEditorWithPreview from '@/components/github-editor-with-preview';
 
 interface GitHubEditPageProps {
   params: Promise<{
@@ -32,7 +32,7 @@ export default async function GitHubEditPage({ params }: GitHubEditPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
-      <GitHubEditor slug={slug} initialContent={initialContent} />
+      <GitHubEditorWithPreview slug={slug} initialContent={initialContent} />
     </div>
   );
 }
