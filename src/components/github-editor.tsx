@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Save, Github, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import DeploymentStatus from './deployment-status';
+import { GITHUB_CONFIG, GITHUB_ENDPOINTS, createGitHubHeaders } from '@/lib/github';
 
 interface GitHubEditorProps {
   slug: string;
@@ -34,13 +36,11 @@ export default function GitHubEditor({ slug, initialContent }: GitHubEditorProps
   });
 
   // GitHub repository information
-  const REPO_OWNER = 'fassousa';
-  const REPO_NAME = 'fassousa.github.io';
   const FILE_PATH = `content/blog/${slug}.md`;
 
   useEffect(() => {
     // Check if GitHub token exists in localStorage
-    const token = localStorage.getItem('githubToken');
+    const token = localStorage.getItem(GITHUB_CONFIG.TOKEN_KEY);
     if (token) {
       setGithubToken(token);
       setIsAuthenticated(true);
@@ -57,15 +57,12 @@ export default function GitHubEditor({ slug, initialContent }: GitHubEditorProps
     setIsLoading(true);
     try {
       // Test the token by making a simple API call
-      const response = await fetch('https://api.github.com/user', {
-        headers: {
-          'Authorization': `token ${githubToken}`,
-          'Accept': 'application/vnd.github.v3+json',
-        },
+      const response = await fetch(GITHUB_ENDPOINTS.USER, {
+        headers: createGitHubHeaders(githubToken),
       });
 
       if (response.ok) {
-        localStorage.setItem('githubToken', githubToken);
+        localStorage.setItem(GITHUB_CONFIG.TOKEN_KEY, githubToken);
         setIsAuthenticated(true);
         setMessage('Successfully authenticated with GitHub!');
         setMessageType('success');
@@ -87,12 +84,9 @@ export default function GitHubEditor({ slug, initialContent }: GitHubEditorProps
   const loadFileContent = async () => {
     try {
       const response = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        GITHUB_ENDPOINTS.CONTENTS(FILE_PATH),
         {
-          headers: {
-            'Authorization': `token ${githubToken}`,
-            'Accept': 'application/vnd.github.v3+json',
-          },
+          headers: createGitHubHeaders(githubToken),
         }
       );
 
@@ -137,12 +131,9 @@ export default function GitHubEditor({ slug, initialContent }: GitHubEditorProps
     try {
       // Get current file to get its SHA
       const getResponse = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        GITHUB_ENDPOINTS.CONTENTS(FILE_PATH),
         {
-          headers: {
-            'Authorization': `token ${githubToken}`,
-            'Accept': 'application/vnd.github.v3+json',
-          },
+          headers: createGitHubHeaders(githubToken),
         }
       );
 
@@ -169,12 +160,11 @@ ${formData.content}`;
 
       // Commit the file
       const commitResponse = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        GITHUB_ENDPOINTS.CONTENTS(FILE_PATH),
         {
           method: 'PUT',
           headers: {
-            'Authorization': `token ${githubToken}`,
-            'Accept': 'application/vnd.github.v3+json',
+            ...createGitHubHeaders(githubToken),
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -202,7 +192,7 @@ ${formData.content}`;
   };
 
   const logout = () => {
-    localStorage.removeItem('githubToken');
+    localStorage.removeItem(GITHUB_CONFIG.TOKEN_KEY);
     setIsAuthenticated(false);
     setGithubToken('');
     setMessage('Logged out from GitHub');
@@ -373,6 +363,10 @@ ${formData.content}`;
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Changes will trigger automatic deployment
             </span>
+            
+            <div className="ml-auto">
+              <DeploymentStatus />
+            </div>
           </div>
 
           {message && (

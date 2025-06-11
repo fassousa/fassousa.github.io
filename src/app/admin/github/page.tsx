@@ -2,6 +2,7 @@ import { getAllPosts } from '@/lib/blog';
 import Link from 'next/link';
 import { Github, Calendar, Tag, Edit } from 'lucide-react';
 import { format } from 'date-fns';
+import DeploymentStatus from '@/components/deployment-status';
 
 export default async function GitHubAdminPage() {
   const posts = await getAllPosts();
@@ -10,13 +11,22 @@ export default async function GitHubAdminPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <div className="flex items-center mb-8">
-            <Github className="h-8 w-8 mr-3" />
-            <div>
-              <h1 className="text-3xl font-bold">GitHub Blog Admin</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
-                Edit your blog posts directly via GitHub API - works on production!
-              </p>
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center">
+              <Github className="h-8 w-8 mr-3" />
+              <div>
+                <h1 className="text-3xl font-bold">GitHub Blog Admin</h1>
+                <p className="text-gray-600 dark:text-gray-400 mt-1">
+                  Edit your blog posts directly via GitHub API - works on production!
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center">
+              <div className="text-right mr-4">
+                <div className="text-sm text-gray-600 dark:text-gray-400">Deployment Status</div>
+                <DeploymentStatus compact={true} />
+              </div>
             </div>
           </div>
 

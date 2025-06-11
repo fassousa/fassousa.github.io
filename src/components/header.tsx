@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
+import QuickDeploymentCheck from './quick-deployment-check';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
@@ -76,6 +77,7 @@ export function Header() {
 
           {/* Mobile menu button and theme toggle */}
           <div className="flex items-center space-x-4">
+            <QuickDeploymentCheck className="hidden sm:flex" />
             <button
               className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
