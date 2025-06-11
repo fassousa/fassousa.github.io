@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { checkAuth, authenticate, logout } from '@/lib/auth';
-import { Lock, LogOut, Plus, Edit, Trash2, ExternalLink } from 'lucide-react';
+import { Lock, LogOut, Plus, Edit, Trash2, ExternalLink, Github } from 'lucide-react';
 import Link from 'next/link';
 
 interface BlogPost {
@@ -133,6 +133,13 @@ export default function AdminPage() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Blog Admin</h1>
         <div className="flex space-x-4">
+          <Link
+            href="/admin/github"
+            className="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-900 transition-colors"
+          >
+            <Github className="h-4 w-4 mr-2" />
+            GitHub Editor
+          </Link>
           <Link
             href="/admin/new"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"

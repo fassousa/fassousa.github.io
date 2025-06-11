@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { format } from 'date-fns';
 import { Calendar, Tag, ArrowLeft } from 'lucide-react';
 import EditPostButton from '@/components/edit-post-button';
+import GitHubEditButton from '@/components/github-edit-button';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -56,7 +57,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="mb-8">
           <div className="flex items-start justify-between">
             <h1 className="text-4xl font-bold mb-4 flex-1">{post.title}</h1>
-            <EditPostButton slug={slug} />
+            <div className="flex items-center gap-2">
+              <EditPostButton slug={slug} />
+              <GitHubEditButton slug={slug} />
+            </div>
           </div>
           
           <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
@@ -108,8 +112,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </article>
 
-      {/* Floating Edit Button for Mobile/Better UX */}
+      {/* Floating Edit Buttons for Mobile/Better UX */}
       <EditPostButton slug={slug} mode="inline" />
+      <div className="fixed bottom-6 left-6 z-50">
+        <GitHubEditButton slug={slug} mode="inline" />
+      </div>
 
       <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
         <Link
