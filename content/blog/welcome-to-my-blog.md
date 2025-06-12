@@ -1,7 +1,7 @@
 ---
 title: "Welcome to My Personal Blog"
 date: "2025-06-07"
-updatedDate: "2025-06-10"
+updatedDate: "2025-06-12"
 excerpt: "This is my first blog post! Learn about what I'll be sharing here and what you can expect from this blog."
 tags: ["welcome", "introduction", "blog"]
 published: true
