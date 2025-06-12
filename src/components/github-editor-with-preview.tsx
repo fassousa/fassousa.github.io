@@ -6,6 +6,19 @@ import { marked } from 'marked';
 import DeploymentStatus from './deployment-status';
 import { GITHUB_CONFIG, GITHUB_ENDPOINTS, createGitHubHeaders } from '@/lib/github';
 
+// UTF-8 safe base64 encoding/decoding functions
+const utf8ToBase64 = (str: string): string => {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+    return String.fromCharCode(parseInt(p1, 16));
+  }));
+};
+
+const base64ToUtf8 = (str: string): string => {
+  return decodeURIComponent(Array.prototype.map.call(atob(str), (c: string) => {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+};
+
 interface GitHubEditorWithPreviewProps {
   slug: string;
   initialContent?: {
@@ -109,7 +122,7 @@ export default function GitHubEditorWithPreview({ slug, initialContent }: GitHub
 
       if (response.ok) {
         const fileData: GitHubFile = await response.json();
-        const content = atob(fileData.content.replace(/\s/g, ''));
+        const content = base64ToUtf8(fileData.content.replace(/\s/g, ''));
         
         // Parse frontmatter and content
         const parts = content.split('---\n');
@@ -163,7 +176,7 @@ export default function GitHubEditorWithPreview({ slug, initialContent }: GitHub
         
         // Extract existing date from the file content
         try {
-          const content = atob(fileData.content.replace(/\s/g, ''));
+          const content = base64ToUtf8(fileData.content.replace(/\s/g, ''));
           const dateMatch = content.match(/date:\s*"([^"]+)"/);
           if (dateMatch) {
             existingDate = dateMatch[1]; // Preserve original date
@@ -206,7 +219,7 @@ ${formData.content}`;
           },
           body: JSON.stringify({
             message: `Update blog post: ${formData.title}`,
-            content: btoa(markdownContent),
+            content: utf8ToBase64(markdownContent),
             sha: sha || undefined,
           }),
         }
