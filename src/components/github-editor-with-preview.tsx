@@ -74,19 +74,24 @@ export default function GitHubEditorWithPreview({ slug, initialContent }: GitHub
       });
 
       if (response.ok) {
+        const userData = await response.json();
         localStorage.setItem(GITHUB_CONFIG.TOKEN_KEY, githubToken);
         setIsAuthenticated(true);
-        setMessage('Successfully authenticated with GitHub!');
+        setMessage(`Successfully authenticated with GitHub as ${userData.login}!`);
         setMessageType('success');
         
         // Load existing file content
         await loadFileContent();
       } else {
-        setMessage('Invalid GitHub token. Please check your token and try again.');
+        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+        console.error('GitHub Auth Error:', errorData);
+        setMessage(`Invalid GitHub token: ${errorData.message || response.statusText} (Status: ${response.status})`);
         setMessageType('error');
       }
-    } catch {
-      setMessage('Error connecting to GitHub. Please try again.');
+    } catch (error) {
+      console.error('Auth error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setMessage(`Error connecting to GitHub: ${errorMessage}`);
       setMessageType('error');
     } finally {
       setIsLoading(false);
@@ -150,14 +155,34 @@ export default function GitHubEditorWithPreview({ slug, initialContent }: GitHub
       );
 
       let sha = '';
+      let existingDate = new Date().toISOString().split('T')[0]; // Default to today
+      
       if (getResponse.ok) {
         const fileData = await getResponse.json();
         sha = fileData.sha;
+        
+        // Extract existing date from the file content
+        try {
+          const content = atob(fileData.content.replace(/\s/g, ''));
+          const dateMatch = content.match(/date:\s*"([^"]+)"/);
+          if (dateMatch) {
+            existingDate = dateMatch[1]; // Preserve original date
+          } else {
+            // If no date found, keep the default (today)
+            console.log('No existing date found, using current date');
+          }
+        } catch (error) {
+          console.warn('Could not extract existing date:', error);
+        }
+      } else if (getResponse.status !== 404) {
+        // If it's not a 404 (file not found), there's an actual error
+        const errorData = await getResponse.json().catch(() => ({ message: getResponse.statusText }));
+        console.error('GitHub API Error (GET):', errorData);
+        throw new Error(`Failed to fetch file: ${errorData.message || getResponse.statusText} (Status: ${getResponse.status})`);
       }
 
       // Create markdown content with frontmatter
       const currentDate = new Date().toISOString().split('T')[0];
-      const existingDate = initialContent ? new Date().toISOString().split('T')[0] : currentDate;
       
       const markdownContent = `---
 title: "${formData.title}"
@@ -191,12 +216,26 @@ ${formData.content}`;
         setMessage('Post successfully saved to GitHub! Changes will be deployed shortly.');
         setMessageType('success');
       } else {
-        const errorData = await commitResponse.json();
-        setMessage(`Error saving to GitHub: ${errorData.message}`);
+        const errorData = await commitResponse.json().catch(() => ({ message: commitResponse.statusText }));
+        console.error('GitHub API Error (PUT):', errorData);
+        
+        // Provide more specific error messages
+        let errorMessage = errorData.message || commitResponse.statusText;
+        if (commitResponse.status === 401) {
+          errorMessage = 'Authentication failed. Please check your GitHub token permissions.';
+        } else if (commitResponse.status === 403) {
+          errorMessage = 'Access denied. Make sure your token has write access to this repository.';
+        } else if (commitResponse.status === 422) {
+          errorMessage = 'Invalid request. The file might have been modified by someone else.';
+        }
+        
+        setMessage(`Error saving to GitHub: ${errorMessage} (Status: ${commitResponse.status})`);
         setMessageType('error');
       }
-    } catch {
-      setMessage('Error saving to GitHub. Please try again.');
+    } catch (error) {
+      console.error('Save error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setMessage(`Error saving to GitHub: ${errorMessage}. Please try again.`);
       setMessageType('error');
     } finally {
       setIsSaving(false);
