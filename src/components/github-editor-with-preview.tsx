@@ -5,6 +5,8 @@ import { Save, Github, Loader2, AlertCircle, CheckCircle, Eye, Code, SplitSquare
 import { marked } from 'marked';
 import DeploymentStatus from './deployment-status';
 import { GITHUB_CONFIG, GITHUB_ENDPOINTS, createGitHubHeaders } from '@/lib/github';
+import { usePathname } from 'next/navigation';
+import { getLanguageFromPath } from '@/lib/i18n/config';
 
 // UTF-8 safe base64 encoding/decoding functions
 const utf8ToBase64 = (str: string): string => {
@@ -37,6 +39,8 @@ interface GitHubFile {
 type ViewMode = 'editor' | 'preview' | 'split';
 
 export default function GitHubEditorWithPreview({ slug, initialContent }: GitHubEditorWithPreviewProps) {
+  const pathname = usePathname();
+  const language = getLanguageFromPath(pathname);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [githubToken, setGithubToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,8 +56,8 @@ export default function GitHubEditorWithPreview({ slug, initialContent }: GitHub
     tags: initialContent?.tags?.join(', ') || '',
   });
 
-  // GitHub repository information
-  const FILE_PATH = `content/blog/${slug}.md`;
+  // GitHub repository information - use detected language
+  const FILE_PATH = `content/blog/${language}/${slug}.md`;
 
   useEffect(() => {
     // Check if GitHub token exists in localStorage

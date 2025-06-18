@@ -4,6 +4,8 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { format } from 'date-fns';
 import { Calendar, Tag, ArrowLeft } from 'lucide-react';
 import UnifiedEditButton from '@/components/unified-edit-button';
+import { translations } from '@/lib/i18n/translations';
+import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -12,15 +14,16 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts('en');
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, 'en');
+  const t = translations.en;
   
   if (!post) {
     return {
@@ -29,14 +32,29 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 
   return {
-    title: `${post.title} - Your Personal Website`,
+    title: `${post.title} | ${t.meta.defaultTitle}`,
     description: post.excerpt,
+    keywords: post.tags?.join(', '),
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.updatedDate,
+      tags: post.tags,
+    },
+    alternates: {
+      languages: {
+        'en': `/blog/${slug}`,
+        'pt': `/pt/blog/${slug}`,
+      },
+    },
   };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, 'en');
 
   if (!post) {
     notFound();

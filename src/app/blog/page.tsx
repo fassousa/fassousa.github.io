@@ -2,21 +2,30 @@ import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
 import { format } from 'date-fns';
 import { Calendar, Tag } from 'lucide-react';
+import type { Metadata } from 'next';
+import { translations } from '@/lib/i18n/translations';
 
-export const metadata = {
-  title: 'Blog - Your Personal Website',
-  description: 'Read my latest thoughts and articles about development, technology, and more.',
+export const metadata: Metadata = {
+  title: `${translations.en.blog.title} - ${translations.en.meta.defaultTitle}`,
+  description: translations.en.meta.defaultDescription,
+  alternates: {
+    languages: {
+      'en': '/blog',
+      'pt': '/pt/blog',
+    },
+  },
 };
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts('en');
+  const t = translations.en;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">Blog</h1>
+        <h1 className="text-4xl font-bold mb-4">{t.blog.title}</h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">
-          My thoughts, insights, and experiences in development and technology.
+          {t.blog.subtitle}
         </p>
       </div>
 

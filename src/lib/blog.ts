@@ -4,11 +4,14 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import { BlogPost, BlogMetadata } from '@/types/blog';
+import { Language, defaultLanguage } from '@/lib/i18n/config';
 
-const postsDirectory = path.join(process.cwd(), 'content/blog');
+const contentDirectory = path.join(process.cwd(), 'content/blog');
 
-export async function getAllPosts(): Promise<BlogPost[]> {
+export async function getAllPosts(language: Language = defaultLanguage): Promise<BlogPost[]> {
   try {
+    const postsDirectory = path.join(contentDirectory, language);
+    
     if (!fs.existsSync(postsDirectory)) {
       return [];
     }
@@ -48,8 +51,9 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   }
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getPostBySlug(slug: string, language: Language = defaultLanguage): Promise<BlogPost | null> {
   try {
+    const postsDirectory = path.join(contentDirectory, language);
     const fullPath = path.join(postsDirectory, `${slug}.md`);
     
     if (!fs.existsSync(fullPath)) {
@@ -78,7 +82,14 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   }
 }
 
-export function createPost(slug: string, metadata: BlogMetadata, content: string): void {
+export function createPost(slug: string, metadata: BlogMetadata, content: string, language: Language = defaultLanguage): void {
+  const postsDirectory = path.join(contentDirectory, language);
+  
+  // Ensure directory exists
+  if (!fs.existsSync(postsDirectory)) {
+    fs.mkdirSync(postsDirectory, { recursive: true });
+  }
+  
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const frontmatter = `---
 title: "${metadata.title}"
@@ -97,12 +108,28 @@ ${content}`;
   fs.writeFileSync(fullPath, frontmatter);
 }
 
-export function updatePost(slug: string, metadata: BlogMetadata, content: string): void {
+export function updatePost(slug: string, metadata: BlogMetadata, content: string, language: Language = defaultLanguage): void {
   // When updating a post, always set the updatedDate to current date
   const updatedMetadata = {
     ...metadata,
     updatedDate: new Date().toISOString().split('T')[0], // Format as YYYY-MM-DD
   };
   
-  createPost(slug, updatedMetadata, content);
+  createPost(slug, updatedMetadata, content, language);
+}
+
+// Get available language versions of a post
+export function getPostTranslations(slug: string): Language[] {
+  const availableLanguages: Language[] = [];
+  
+  for (const lang of ['en', 'pt'] as Language[]) {
+    const postsDirectory = path.join(contentDirectory, lang);
+    const fullPath = path.join(postsDirectory, `${slug}.md`);
+    
+    if (fs.existsSync(fullPath)) {
+      availableLanguages.push(lang);
+    }
+  }
+  
+  return availableLanguages;
 }

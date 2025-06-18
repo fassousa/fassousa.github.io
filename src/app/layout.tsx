@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Fagnner Sousa - Developer & Blog",
     description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
-    url: "https://fassousa.github.io/personal-page",
+    url: "https://fassousa.github.io",
     siteName: "Fagnner Sousa",
     type: "website",
   },
@@ -31,6 +31,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fagnner Sousa - Developer & Blog",
     description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
+  },
+  alternates: {
+    languages: {
+      'en': '/',
+      'pt': '/pt',
+    },
   },
 };
 
