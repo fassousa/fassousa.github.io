@@ -7,6 +7,7 @@ import React from 'react';
 
 export default async function PtHomePage() {
   const posts = await getAllPosts('pt');
+  const recentPosts = posts.slice(0, 3);
   const t = translations.pt;
 
   return (
@@ -55,9 +56,9 @@ export default async function PtHomePage() {
           </Link>
         </div>
         
-        {posts.length > 0 ? (
+        {recentPosts.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.slice(0, 3).map((post) => (
+            {recentPosts.map((post) => (
               <article
                 key={post.slug}
                 className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow"

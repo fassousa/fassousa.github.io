@@ -1,12 +1,16 @@
-import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import { format } from 'date-fns';
+import { Calendar, Tag, ArrowLeft } from 'lucide-react';
 import UnifiedEditButton from '@/components/unified-edit-button';
 import { translations } from '@/lib/i18n/translations';
 import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -20,7 +24,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const { slug } = await params;
   const post = await getPostBySlug(slug, 'pt');
   const t = translations.pt;
-
+  
   if (!post) {
     return {
       title: 'Post não encontrado',
@@ -51,71 +55,91 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug, 'pt');
-  const t = translations.pt;
 
   if (!post) {
     notFound();
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Navigation */}
-      <nav className="mb-8">
-        <Link 
-          href="/pt/blog" 
-          className="text-blue-600 dark:text-blue-400 hover:underline"
-        >
-          ← {t.blog.backToBlog}
-        </Link>
-      </nav>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Link
+        href="/pt/blog"
+        className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-8"
+      >
+        <ArrowLeft className="h-4 w-4 mr-1" />
+        Voltar ao Blog
+      </Link>
 
-      {/* Article header */}
-      <header className="mb-8">
-        <div className="flex items-start justify-between mb-4">
-          <h1 className="text-4xl font-bold leading-tight flex-1">
-            {post.title}
-          </h1>
-          <UnifiedEditButton slug={post.slug} mode="external" />
-        </div>
-        
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-4">
-          <time dateTime={post.date}>
-            {t.blog.publishedOn} {new Date(post.date).toLocaleDateString('pt-BR')}
-          </time>
-          {post.updatedDate && post.updatedDate !== post.date && (
-            <time dateTime={post.updatedDate}>
-              {t.blog.updatedOn} {new Date(post.updatedDate).toLocaleDateString('pt-BR')}
-            </time>
-          )}
-        </div>
-
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-sm text-gray-500 dark:text-gray-400">{t.blog.tags}:</span>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-sm rounded-md"
-                >
-                  {tag}
-                </span>
-              ))}
+      <article>
+        <header className="mb-8">
+          <div className="flex items-start justify-between">
+            <h1 className="text-4xl font-bold mb-4 flex-1">{post.title}</h1>
+            <div className="flex items-center">
+              <UnifiedEditButton slug={slug} />
             </div>
           </div>
-        )}
-      </header>
+          
+          <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center">
+              <Calendar className="h-4 w-4 mr-1" />
+              <time dateTime={post.date}>
+                {format(new Date(post.date), 'dd/MM/yyyy')}
+              </time>
+            </div>
+            {post.updatedDate && post.updatedDate !== post.date && (
+              <div className="flex items-center">
+                <Calendar className="h-4 w-4 mr-1" />
+                <span>
+                  Atualizado em {format(new Date(post.updatedDate), 'dd/MM/yyyy')}
+                </span>
+              </div>
+            )}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex items-center">
+                <Tag className="h-4 w-4 mr-1" />
+                <div className="flex space-x-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </header>
 
-      {/* Article content */}
-      <article 
-        className="prose prose-gray dark:prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+        <div
+          className="prose prose-gray dark:prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+        
+        {/* Post metadata footer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="text-sm text-gray-500 dark:text-gray-400 italic">
+            <p>Este post foi escrito em {format(new Date(post.date), 'dd/MM/yyyy')}</p>
+            {post.updatedDate && post.updatedDate !== post.date && (
+              <p>Última atualização em {format(new Date(post.updatedDate), 'dd/MM/yyyy')}</p>
+            )}
+          </div>
+        </div>
+      </article>
 
-      {/* Edit button for mobile */}
-      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <UnifiedEditButton slug={post.slug} mode="inline" />
-      </div>
+      {/* Floating Edit Button for Mobile/Better UX */}
+      <UnifiedEditButton slug={slug} mode="inline" />
+
+      <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        <Link
+          href="/pt/blog"
+          className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          Voltar a todos os posts
+        </Link>
+      </footer>
     </div>
   );
 }
