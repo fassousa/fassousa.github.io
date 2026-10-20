@@ -6,7 +6,7 @@ const person = {
   '@id': `${SITE_URL}/#person`,
   name: 'Fagnner Sousa',
   url: `${SITE_URL}/`,
-  image: `${SITE_URL}/profile.webp`,
+  image: `${SITE_URL}/profile-pixel.webp`,
   jobTitle: 'Backend & Infrastructure Engineer',
   description:
     'Backend and infrastructure engineer with 6+ years building and rescuing production systems. PostgreSQL, Docker, queues, webhooks and AI automation.',

@@ -252,7 +252,7 @@ export function AboutView({ language }: { language: Language }) {
                         className="absolute -inset-1 rounded-full bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-amber-400 opacity-70 blur-[3px]"
                       />
                       <Image
-                        src="/profile.webp"
+                        src="/profile-pixel.webp"
                         alt="Portrait of Fagnner Sousa"
                         width={192}
                         height={192}

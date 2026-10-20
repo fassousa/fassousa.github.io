@@ -32,7 +32,7 @@ export function SiteFooter() {
             className="inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-ink"
           >
             <Image
-              src="/profile.webp"
+              src="/profile-pixel.webp"
               alt=""
               width={64}
               height={64}

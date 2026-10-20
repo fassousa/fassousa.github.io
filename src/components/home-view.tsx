@@ -206,7 +206,7 @@ export async function HomeView({ language }: { language: Language }) {
               <div className="relative overflow-hidden rounded-[2rem] border border-line/10 bg-surface p-2 shadow-lift">
                 <div className="relative aspect-square overflow-hidden rounded-[1.6rem]">
                   <Image
-                    src="/profile.webp"
+                    src="/profile-pixel.webp"
                     alt="Portrait of Fagnner Sousa"
                     width={720}
                     height={720}

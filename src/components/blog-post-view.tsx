@@ -90,7 +90,7 @@ export function BlogPostView({
           <div className="flex flex-col gap-4 rounded-2xl border border-line/10 bg-surface/60 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <Image
-                src="/profile.webp"
+                src="/profile-pixel.webp"
                 alt=""
                 width={80}
                 height={80}

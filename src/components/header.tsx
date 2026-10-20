@@ -63,7 +63,7 @@ export function Header() {
           >
             <span className="relative flex-shrink-0">
               <Image
-                src="/profile.webp"
+                src="/profile-pixel.webp"
                 alt=""
                 width={72}
                 height={72}
