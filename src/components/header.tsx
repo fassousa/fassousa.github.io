@@ -144,11 +144,13 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile navigation */}
+        {/* Mobile navigation. Keep the panel free of overflow-hidden: the
+            language dropdown is absolutely positioned and must be able to
+            extend past the panel's bottom edge. */}
         {mobileMenuOpen && (
           <div
             id="mobile-navigation"
-            className="mt-2 overflow-hidden rounded-2xl border border-line/10 bg-canvas/95 p-2 shadow-lift backdrop-blur-xl md:hidden"
+            className="mt-2 rounded-2xl border border-line/10 bg-canvas/95 p-2 shadow-lift backdrop-blur-xl md:hidden"
           >
             <nav aria-label="Mobile navigation" className="flex flex-col">
               {navigationItems.map((item) => {

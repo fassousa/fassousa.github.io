@@ -7,8 +7,7 @@ module.exports = {
     '**/__tests__/**/*.test.tsx'
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
-    '^.+\\.tsx$': ['ts-jest', {
+    '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: {
         jsx: 'react-jsx',
       },
