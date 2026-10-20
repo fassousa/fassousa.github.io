@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { translations } from '@/lib/i18n/translations';
 import React from 'react';
+import { ogImages } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: translations.pt.meta.defaultTitle,
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
     siteName: "Fagnner Sousa",
     type: "website",
     locale: "pt_BR",
+    images: [{ ...ogImages.pt }],
   },
   twitter: {
     card: "summary_large_image",
     title: translations.pt.meta.defaultTitle,
     description: translations.pt.meta.defaultDescription,
+    images: [ogImages.pt.url],
   },
   alternates: {
     languages: {

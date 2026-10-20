@@ -41,5 +41,6 @@ export const getLocalizedPath = (path: string, language: Language): string => {
 };
 
 export const removeLanguageFromPath = (path: string): string => {
-  return path.replace(/^\/[a-z]{2}\//, '/');
+  const stripped = path.replace(/^\/(?:pt|en)(?=\/|$)/, '');
+  return stripped === '' ? '/' : stripped;
 };

@@ -12,6 +12,12 @@ const THEME_ICONS = {
   system: Monitor,
 } as const;
 
+const THEME_LABELS = {
+  light: 'Light theme',
+  dark: 'Dark theme',
+  system: 'System theme',
+} as const;
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -29,12 +35,8 @@ export function ThemeToggle() {
   // Prevent hydration mismatch with consistent placeholder
   if (!mounted) {
     return (
-      <button
-        className="p-2 rounded-md h-9 w-9"
-        aria-label="Toggle theme"
-        disabled
-      >
-        <Sun className="h-5 w-5" />
+      <button className="icon-btn h-9 w-9" aria-label="Toggle theme" disabled>
+        <Sun className="h-[18px] w-[18px]" />
       </button>
     );
   }
@@ -43,11 +45,13 @@ export function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Toggle theme"
+      className="icon-btn"
+      aria-label={`${THEME_LABELS[theme]} — switch theme`}
+      title={THEME_LABELS[theme]}
     >
-      <IconComponent className="h-5 w-5" />
+      <IconComponent className="h-[18px] w-[18px]" />
     </button>
   );
 }

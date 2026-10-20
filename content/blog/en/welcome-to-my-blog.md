@@ -39,8 +39,8 @@ Beyond the technical content, I believe in the importance of sharing the human s
 
 I'd love to hear from you! Feel free to reach out through:
 
-- Email: your.email@example.com
-- GitHub: github.com/yourusername
-- LinkedIn: linkedin.com/in/yourusername
+- Email: [sousafagnner@gmail.com](mailto:sousafagnner@gmail.com)
+- GitHub: [github.com/fassousa](https://github.com/fassousa)
+- LinkedIn: [linkedin.com/in/fagnnersousa](https://www.linkedin.com/in/fagnnersousa/)
 
 Thank you for visiting, and I hope you find the content here valuable and inspiring. Happy reading!

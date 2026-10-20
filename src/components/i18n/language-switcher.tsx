@@ -1,7 +1,8 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Check, ChevronDown } from 'lucide-react';
 import { languages, Language, getLocalizedPath, removeLanguageFromPath } from '@/lib/i18n/config';
 import { useTranslations } from '@/lib/i18n/hooks';
 
@@ -16,53 +17,78 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
   const router = useRouter();
 
   const handleLanguageChange = (newLanguage: Language) => {
-    const basePath = removeLanguageFromPath(pathname);
+    const basePath = removeLanguageFromPath(pathname) || '/';
     const newPath = getLocalizedPath(basePath, newLanguage);
     router.push(newPath);
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
+
   return (
     <div className={`relative ${className}`}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        className="flex h-9 items-center gap-1.5 rounded-full border border-line/10 bg-surface/60 pl-2.5 pr-2 text-muted transition-colors duration-300 ease-smooth hover:border-line/25 hover:text-ink"
         aria-label={t('common.switchLanguage')}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
       >
-        <span className="text-lg">{languages[language].flag}</span>
-        <span className="text-sm font-medium">{languages[language].code.toUpperCase()}</span>
-        <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <span className="text-[15px] leading-none" aria-hidden="true">
+          {languages[language].flag}
+        </span>
+        <span className="text-[11.5px] font-semibold tracking-[0.08em]">
+          {languages[language].code.toUpperCase()}
+        </span>
+        <ChevronDown
+          className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+        />
       </button>
 
       {isOpen && (
         <>
-          {/* Backdrop */}
           <div
-            className="fixed inset-0 z-10"
+            className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
+            aria-hidden="true"
           />
-          
-          {/* Dropdown */}
-          <div className="absolute top-full right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-20 min-w-[140px]">
-            {Object.entries(languages).map(([code, lang]) => (
-              <button
-                key={code}
-                onClick={() => handleLanguageChange(code as Language)}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                  code === language ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : ''
-                }`}
-              >
-                <span className="text-lg">{lang.flag}</span>
-                <span className="text-sm">{lang.name}</span>
-              </button>
-            ))}
+
+          <div
+            role="menu"
+            aria-label={t('common.language')}
+            className="absolute right-0 top-full z-50 mt-2 w-44 overflow-hidden rounded-xl border border-line/10 bg-canvas/95 p-1 shadow-lift backdrop-blur-xl"
+          >
+            {Object.entries(languages).map(([code, lang]) => {
+              const active = code === language;
+              return (
+                <button
+                  key={code}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={active}
+                  onClick={() => handleLanguageChange(code as Language)}
+                  className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors ${
+                    active ? 'bg-line/5 text-ink' : 'text-muted hover:bg-line/5 hover:text-ink'
+                  }`}
+                >
+                  <span className="text-base leading-none" aria-hidden="true">
+                    {lang.flag}
+                  </span>
+                  <span className="flex-1 font-medium">{lang.name}</span>
+                  {active && <Check className="h-3.5 w-3.5 text-accent" />}
+                </button>
+              );
+            })}
           </div>
         </>
       )}

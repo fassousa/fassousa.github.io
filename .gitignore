@@ -49,3 +49,7 @@ REFACTORING_ANALYSIS.md
 TEST_CLEANUP_SUMMARY.md
 FINAL_CODE_REVIEW_SUMMARY.md
 .github/copilot-instructions.md
+
+# Design preview artifacts (screenshots)
+/preview/
+/.preview/

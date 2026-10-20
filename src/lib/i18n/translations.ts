@@ -46,13 +46,14 @@ export const translations = {
       success: 'Success',
       close: 'Close',
       open: 'Open',
+      skipToContent: 'Skip to content',
     },
     
     // Metadata
     meta: {
-      defaultTitle: 'Fagnner Sousa - Developer & Blog',
-      defaultDescription: 'Personal website of Fagnner Sousa - passionate developer creating amazing web experiences. Welcome to my space where I share thoughts, projects, and journey.',
-      keywords: 'Fagnner Sousa, developer, web development, blog, personal website',
+      defaultTitle: 'Fagnner Sousa — Backend & Infrastructure Engineer',
+      defaultDescription: 'Backend and infrastructure engineer with 6+ years building and rescuing production systems. PostgreSQL, Docker, queues, webhooks and AI automation.',
+      keywords: 'Fagnner Sousa, backend engineer, infrastructure engineer, PostgreSQL, n8n, Docker, Ruby on Rails, AI automation',
     },
   },
   
@@ -103,13 +104,14 @@ export const translations = {
       success: 'Sucesso',
       close: 'Fechar',
       open: 'Abrir',
+      skipToContent: 'Pular para o conteúdo',
     },
     
     // Metadata
     meta: {
-      defaultTitle: 'Fagnner Sousa - Desenvolvedor & Blog',
-      defaultDescription: 'Site pessoal de Fagnner Sousa - desenvolvedor apaixonado criando experiências web incríveis. Bem-vindo ao meu espaço onde compartilho pensamentos, projetos e jornada.',
-      keywords: 'Fagnner Sousa, desenvolvedor, desenvolvimento web, blog, site pessoal',
+      defaultTitle: 'Fagnner Sousa — Engenheiro Backend & Infraestrutura',
+      defaultDescription: 'Engenheiro de backend e infraestrutura com 6+ anos construindo e resgatando sistemas em produção. PostgreSQL, Docker, filas, webhooks e automação com IA.',
+      keywords: 'Fagnner Sousa, engenheiro backend, infraestrutura, PostgreSQL, n8n, Docker, Ruby on Rails, automação com IA',
     },
   },
 } as const;

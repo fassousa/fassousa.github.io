@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
+import { SiteFooter } from "@/components/footer";
+import { SkipLink } from "@/components/skip-link";
+import { PersonSchema } from "@/components/person-schema";
+import { ogImages, SITE_URL } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,22 +19,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fagnner Sousa - Developer & Blog",
-  description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences. Welcome to my space where I share thoughts, projects, and journey.",
-  keywords: ["Fagnner Sousa", "developer", "web development", "blog", "personal website"],
+  metadataBase: new URL(SITE_URL),
+  title: "Fagnner Sousa — Backend & Infrastructure Engineer",
+  description: "Backend and infrastructure engineer with 6+ years building and rescuing production systems. PostgreSQL, Docker, queues, webhooks and AI automation.",
+  keywords: ["Fagnner Sousa", "backend engineer", "infrastructure engineer", "PostgreSQL", "n8n", "Docker", "Ruby on Rails", "AI automation"],
   authors: [{ name: "Fagnner Sousa" }],
   creator: "Fagnner Sousa",
   openGraph: {
-    title: "Fagnner Sousa - Developer & Blog",
-    description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
+    title: "Fagnner Sousa — Backend & Infrastructure Engineer",
+    description: "Backend and infrastructure engineer building and rescuing production systems.",
     url: "https://fassousa.github.io",
     siteName: "Fagnner Sousa",
     type: "website",
+    images: [{ ...ogImages.en }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fagnner Sousa - Developer & Blog",
-    description: "Personal website of Fagnner Sousa - passionate developer creating amazing web experiences.",
+    title: "Fagnner Sousa — Backend & Infrastructure Engineer",
+    description: "Backend and infrastructure engineer building and rescuing production systems.",
+    images: [ogImages.en.url],
   },
   alternates: {
     languages: {
@@ -38,6 +45,13 @@ export const metadata: Metadata = {
       'pt': '/pt',
     },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F7F6F3" },
+    { media: "(prefers-color-scheme: dark)", color: "#090B11" },
+  ],
 };
 
 export default function RootLayout({
@@ -75,13 +89,17 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        id="top"
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-canvas font-sans text-ink antialiased`}
       >
+        <PersonSchema />
         <ThemeProvider>
+          <SkipLink />
           <Header />
-          <main className="min-h-screen">
+          <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
